@@ -29,25 +29,18 @@ class CardDeck extends Component {
     getCard = () => {
         let cardsSet = [...this.state.cards];
         let number = Math.floor(Math.random() * cardsSet.length);
-        return cardsSet[number];
+        const removedCard = cardsSet.splice(number, 1);
+        this.setState({cards: cardsSet});
+        return removedCard[0];
     };
 
     getCards = (numberOfcards) => {
-        let part = [];
-        let cardsSet = [...this.state.cards];
-        while (part.length < numberOfcards) {
+        let currentCards = [];
+        while (currentCards.length < numberOfcards) {
             let newCard = this.getCard();
-            if (newCard !== part[0] && newCard !== part[1] && newCard !== part[2] && newCard !== part[3] && newCard !== part[4]) {
-                part.push(newCard);
-            } else {
-                continue;
-            }
-
-            let index = cardsSet.findIndex(card => card.suit === newCard.suit && card.rank === newCard.rank);
-            cardsSet.splice(index, 1)
+            currentCards.push(newCard);
         }
-        this.setState({part, cards: cardsSet, text: ''});
-
+        this.setState({currentCards, text: ''});
     };
 
     getOutcome = () => {
