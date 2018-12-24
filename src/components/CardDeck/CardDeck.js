@@ -14,6 +14,7 @@ class CardDeck extends Component {
                 let object = {};
                 object.rank = ranks[i];
                 object.suit = suits[j];
+                object.order = i + 2;
                 cards.push(object);
             }
         }
@@ -22,7 +23,7 @@ class CardDeck extends Component {
 
     state = {
         cards: this.cardDeck(),
-        part: [],
+        currentCards: [],
         text: ''
     };
 
@@ -136,7 +137,7 @@ class CardDeck extends Component {
     render() {
         return (
             <div>
-                {this.state.cards.length > 5 ? this.state.part.map((card, key) =>
+                {this.state.cards.length > 5 ? this.state.currentCards.map((card, key) =>
                         <Card
                             key={key}
                             rank={card.rank}
@@ -151,7 +152,7 @@ class CardDeck extends Component {
                 {this.state.cards.length > 5?
                     <div>
                         <p>{this.state.text}</p>
-                        <button onClick={() => this.getOutcome()}>Show result</button>
+                        <button onClick={this.getOutcome}>Show result</button>
                     </div>
                     : <p>To start again reload page</p>
                 }
